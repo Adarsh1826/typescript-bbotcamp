@@ -61,27 +61,27 @@
 // here we create create Interface to use at many place by just def
 // in one place
 
-interface User {
-    firstName:string,
-    lastname:string,
-    age:number
-}
-function greet(user:User){
-    console.log("hi there "+user.firstName);
-}
-greet({
-    firstName:"adarshh",
-    lastname:"singh",
-    age:20
-})
+// interface User {
+//     firstName:string,
+//     lastname:string,
+//     age:number
+// }
+// function greet(user:User){
+//     console.log("hi there "+user.firstName);
+// }
+// greet({
+//     firstName:"adarshh",
+//     lastname:"singh",
+//     age:20
+// })
 
 // enum
-enum Direction{
-    Up ="up",
-    Down="down",
-    Left="left",
-    Right="right"
-}
+// enum Direction{
+//     Up ="up",
+//     Down="down",
+//     Left="left",
+//     Right="right"
+// }
 
 // enum can be used at many place where we can just change the value 
 // at one place and all occurences changes
@@ -130,3 +130,34 @@ type  Us = {
 }
 // the main diffrence between Interface and type is that
 // we can use such operation like | & on type not on interface
+
+// Advance ts
+interface User {
+    id:string,
+    name:string,
+    password:string,
+    age:number,
+    email:string
+}
+
+// now here we are using pick to select some desired things from
+// the User interface
+
+
+// here we Uses generic and Pick to extract the name email ans age
+type UpdateUser = Pick<User,'name'|'age'|'email'>
+// type UpdateUserOptinal = Partial<UpdateUser>
+function updateUser(props:UpdateUser){
+    console.log(`${props.name}, ${props.age} , ${props.email}`);
+}
+const test2 ={
+    name:"adarsh",
+    age:20,
+    email:"ads@gmail.com"
+}
+updateUser(test2)
+
+// Partial it make value optional
+// here in test2 user is not updating all things
+// so we use partial to do this
+type UpdateUserOptinal = Partial<UpdateUser>
