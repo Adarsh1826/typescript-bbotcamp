@@ -107,57 +107,88 @@
 
 // Generics
 
-function identity<T>(arg:T){
-    return arg
-}
-let output1 = identity("myString").toUpperCase()
-let output2= identity(100)
-console.log(output1);
-console.log(output2);
+// function identity<T>(arg:T){
+//     return arg
+// }
+// let output1 = identity("myString").toUpperCase()
+// let output2= identity(100)
+// console.log(output1);
+// console.log(output2);
 
 // Array generic
-function test<T>(arg:T[]){
-    return arg[0]
-}
-let o = test([true,false])
-console.log(o);
+// function test<T>(arg:T[]){
+//     return arg[0]
+// }
+// let o = test([true,false])
+// console.log(o);
 
-// types
-type  Us = {
-    firstname:string,
-    lastname:string,
-    age:number
-}
-// the main diffrence between Interface and type is that
-// we can use such operation like | & on type not on interface
+// // types
+// type  Us = {
+//     firstname:string,
+//     lastname:string,
+//     age:number
+// }
+// // the main diffrence between Interface and type is that
+// // we can use such operation like | & on type not on interface
 
-// Advance ts
-interface User {
-    id:string,
-    name:string,
-    password:string,
-    age:number,
-    email:string
-}
+// // Advance ts
+// interface User {
+//     id:string,
+//     name:string,
+//     password:string,
+//     age:number,
+//     email:string
+// }
 
 // now here we are using pick to select some desired things from
 // the User interface
 
 
 // here we Uses generic and Pick to extract the name email ans age
-type UpdateUser = Pick<User,'name'|'age'|'email'>
-// type UpdateUserOptinal = Partial<UpdateUser>
-function updateUser(props:UpdateUser){
-    console.log(`${props.name}, ${props.age} , ${props.email}`);
-}
-const test2 ={
-    name:"adarsh",
-    age:20,
-    email:"ads@gmail.com"
-}
-updateUser(test2)
+// type UpdateUser = Pick<User,'name'|'age'|'email'>
+// // type UpdateUserOptinal = Partial<UpdateUser>
+// function updateUser(props:UpdateUser){
+//     console.log(`${props.name}, ${props.age} , ${props.email}`);
+// }
+// const test2 ={
+//     name:"adarsh",
+//     age:20,
+//     email:"ads@gmail.com"
+// }
+// updateUser(test2)
 
 // Partial it make value optional
 // here in test2 user is not updating all things
 // so we use partial to do this
-type UpdateUserOptinal = Partial<UpdateUser>
+// type UpdateUserOptinal = Partial<UpdateUser>
+// // readonly is used to fix the value so it can never be changes
+
+// type UserOne ={
+//     readonly name:string,
+//     readonly age:number
+// }
+
+// cleaner way to create  object
+// type Userss = Record<string,{age:number,name:string}>
+// const user:Userss={
+//     "add":{age:20,name:"adarsh"}
+   
+// }
+type User ={
+    name:string,
+    age:number,
+    email:string
+}
+const users = new Map<string,User>()
+users.set("ads",{name:"Ras",age:30,email:"ads@gmail.com"})
+users.set("sara",{name:"Ras",age:31,email:"sara@gmail.com"})
+
+const user = users.get("ads")
+console.log(user);
+type EventType ='click' |'scroll' |'mousemove';
+type ExcludeEvent = Exclude<EventType,'scroll'>
+const handleEvent  = (event:ExcludeEvent)=>{
+    console.log(`${event}`);
+    
+}
+handleEvent('click')
